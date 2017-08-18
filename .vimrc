@@ -131,6 +131,13 @@ endif
 command NT NERDTree
 command T CommandT
 command SR SyntasticReset
+command SR SyntasticReset
+command Def TernDef
+command Doc TernDoc
+command Type TernType
+command Refs TernRefs
+command Re TernRename
+
 inoremap jk <ESC>
 
 let mapleader = "\<Space>"
