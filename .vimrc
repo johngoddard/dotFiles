@@ -66,6 +66,9 @@ map <silent> <leader>n :NERDTreeToggle<CR> :NERDTreeMirror<CR>
 Plugin 'wincent/command-t'
 set wildignore+=node_modules
 
+Plugin 'junegunn/fzf'
+let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+
 let g:CommandTMaxHeight = 30
 let g:CommandTMaxFiles = 500000
 
@@ -154,6 +157,11 @@ vnoremap . :norm.<CR>
 
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+
+"ctrl p to :FZF for file search
+nnoremap <C-p> :FZF <Enter>
 
 Plugin 'mileszs/ack.vim'
 let g:ackprg = 'ag --column'
