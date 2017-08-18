@@ -12,6 +12,8 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
+set backspace=2 " make backspace work like other apps
+
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
@@ -21,12 +23,15 @@ let g:ycm_show_diagnostics_ui = 0
 let g:syntastic_enable_highlighting = 0
 
 let g:syntastic_mode_map = {
-    \ "mode": "active",
-    \ "active_filetypes": ["javascript"],
-    \ "passive_filetypes": ["ruby"] }
+  \ "mode": "active",
+  \ "active_filetypes": ["javascript"],
+  \ "passive_filetypes": ["ruby"] }
 
 Plugin 'nathanaelkane/vim-indent-guides'
-let g:indent_guides_auto_colors = 1
+let g:indent_guides_auto_colors = 0
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=black
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=darkgrey
+
 let g:indent_guides_guide_size = 1
 let g:indent_guides_enable_on_vim_startup = 1
 
@@ -59,6 +64,8 @@ let NERDTreeShowHidden=1
 map <silent> <leader>n :NERDTreeToggle<CR> :NERDTreeMirror<CR>
 
 Plugin 'wincent/command-t'
+set wildignore+=node_modules
+
 let g:CommandTMaxHeight = 30
 let g:CommandTMaxFiles = 500000
 
@@ -83,6 +90,11 @@ filetype plugin indent on    " required
 set number
 set linespace=1
 set showtabline=2
+set incsearch
+set ignorecase
+
+set noswapfile
+
 
 filetype plugin indent on
 
@@ -92,16 +104,16 @@ set shiftwidth=2
 
 set expandtab
 
+set background=dark
+colorscheme default
 
 if has('gui_running')
-	set background=dark
-	colorscheme hybrid
-	 set guifont=Monaco
+  set background=dark
+  colorscheme hybrid
+  set guifont=Monaco
 
-   " Press Ctrl-Tab to switch between open tabs (like browser tabs) to 
-   " the right side. Ctrl-Shift-Tab goes the other way.
-   noremap <C-Tab> :tabnext<CR>
-   noremap <C-S-Tab> :tabprev<CR>
+  noremap <C-Tab> :tabnext<CR>
+  noremap <C-S-Tab> :tabprev<CR>
   " Switch to specific tab numbers with Command-number
   noremap <D-1> :tabn 1<CR>
   noremap <D-2> :tabn 2<CR>
@@ -112,7 +124,6 @@ if has('gui_running')
   noremap <D-7> :tabn 7<CR>
   noremap <D-8> :tabn 8<CR>
   noremap <D-9> :tabn 9<CR>
-  
   " Command-0 goes to the last tab
   noremap <D-0> :tablast<CR>
 endif
@@ -120,19 +131,22 @@ endif
 command NT NERDTree
 command T CommandT
 command SR SyntasticReset
-
 inoremap jk <ESC>
 
 let mapleader = "\<Space>"
 filetype plugin indent on
 syntax on
 set encoding=utf-8
-execute pathogen#infect()
-set spell spelllang=en_us
+
 nnoremap <leader>f 1z=
 nnoremap <leader>s :set spell!
-nnoremap <leader>l :set number
+nnoremap <leader>l :set number!
 vnoremap . :norm.<CR>
+
+:autocmd InsertEnter,InsertLeave * set cul!
 
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+
+Plugin 'mileszs/ack.vim'
+let g:ackprg = 'ag --column'
