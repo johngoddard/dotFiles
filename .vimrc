@@ -108,7 +108,7 @@ set shiftwidth=2
 set expandtab
 
 " color schemes
-Plug 'morhetz/gruvbox'
+Plugin 'morhetz/gruvbox'
 
 set background=dark
 colorscheme gruvbox
