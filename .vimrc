@@ -107,12 +107,16 @@ set shiftwidth=2
 
 set expandtab
 
+" color schemes
+Plug 'morhetz/gruvbox'
+
 set background=dark
-colorscheme default
+colorscheme gruvbox
+let g:gruvbox_contrast_dark='hard'
 
 if has('gui_running')
   set background=dark
-  colorscheme hybrid
+  colorscheme gruvbox
   set guifont=Monaco
 
   noremap <C-Tab> :tabnext<CR>
