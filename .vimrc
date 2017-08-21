@@ -16,7 +16,7 @@ set backspace=2 " make backspace work like other apps
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 1
 let g:syntastic_javascript_checkers = ['eslint']
 let g:ycm_show_diagnostics_ui = 0
@@ -153,10 +153,12 @@ syntax on
 set encoding=utf-8
 
 nnoremap <leader>f 1z=
-nnoremap <leader>s :set spell!
-nnoremap <leader>l :set number!
+nnoremap <leader>s :set spell! <enter>
+nnoremap <leader>l :set number! <enter>
 nnoremap <leader>v :vsplit <enter>
 nnoremap <leader>h :split <enter>
+nnoremap <leader>w :w <enter>
+nnoremap <leader>q :q <enter>
 nnoremap <leader><leader> <c-^.>
 
 vnoremap . :norm.<CR>
