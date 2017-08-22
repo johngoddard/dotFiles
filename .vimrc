@@ -159,7 +159,7 @@ nnoremap <leader>h :split <enter>
 nnoremap <leader>w :w <enter>
 nnoremap <leader>q :q <enter>
 nnoremap <leader><leader> <c-^>
-nmap <leader>r :NERDTreeFocus <enter>
+nnoremap <leader>r :NERDTreeFocus <enter>
 nnoremap <silent> <leader>f :NERDTreeFind<CR>
 nnoremap <leader>n :NERDTreeToggle <enter>
 
