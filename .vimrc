@@ -159,7 +159,7 @@ nnoremap <leader>v :vsplit <enter>
 nnoremap <leader>h :split <enter>
 nnoremap <leader>w :w <enter>
 nnoremap <leader>q :q <enter>
-nnoremap <leader><leader> <c-^.>
+nnoremap <leader><leader> <c-^>
 
 vnoremap . :norm.<CR>
 
