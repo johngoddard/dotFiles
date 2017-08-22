@@ -61,7 +61,6 @@ let g:vim_markdown_folding_disabled = 1
 Plugin 'scrooloose/nerdtree'
 
 let NERDTreeShowHidden=1
-map <silent> <leader>n :NERDTreeToggle<CR> :NERDTreeMirror<CR>
 
 Plugin 'wincent/command-t'
 set wildignore+=node_modules
@@ -160,6 +159,9 @@ nnoremap <leader>h :split <enter>
 nnoremap <leader>w :w <enter>
 nnoremap <leader>q :q <enter>
 nnoremap <leader><leader> <c-^>
+nmap <leader>r :NERDTreeFocus <enter>
+nnoremap <silent> <leader>f :NERDTreeFind<CR>
+nnoremap <leader>n :NERDTreeToggle <enter>
 
 vnoremap . :norm.<CR>
 
