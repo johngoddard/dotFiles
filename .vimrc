@@ -85,6 +85,7 @@ let g:rubycomplete_rails = 1
 Plugin 'w0ng/vim-hybrid'
 
 Plugin 'mattn/emmet-vim'
+let g:user_emmet_leader_key='<Tab>'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
