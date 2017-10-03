@@ -47,9 +47,11 @@ alias cgrn='create-github-repo --name'
 alias chrome="open -a 'Google Chrome'"
 alias mvi="open -a MacVim.app $1"
 
-aliase ns='npm start'
+alias ns='npm start'
 alias ni='npm install'
 alias nis='npm install --save'
+
+alias ls='ls -GFh'
 
 # Setting PATH for Python 3.5
 # The original version is saved in .bash_profile.pysave
