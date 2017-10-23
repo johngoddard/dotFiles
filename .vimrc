@@ -6,6 +6,26 @@ call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
 
+" highlighting for git
+Plugin 'airblade/vim-gitgutter'
+"
+" GitGutter update time
+set updatetime=1000
+
+" GitGutter styling to use · instead of +/-
+let g:gitgutter_sign_added = '∙'
+let g:gitgutter_sign_modified = '∙'
+let g:gitgutter_sign_removed = '∙'
+let g:gitgutter_sign_modified_removed = '∙'
+
+Plugin 'tpope/vim-fugitive'
+
+Plugin 'bling/vim-airline'
+
+Plugin 'vim-airline/vim-airline-themes'
+let g:airline_theme='solarized'
+let g:airline_solarized_bg='dark'
+
 Plugin 'scrooloose/syntastic'
 
 set statusline+=%#warningmsg#
