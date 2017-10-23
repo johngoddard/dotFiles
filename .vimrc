@@ -20,11 +20,12 @@ let g:gitgutter_sign_modified_removed = '∙'
 
 Plugin 'tpope/vim-fugitive'
 
-Plugin 'bling/vim-airline'
+Plugin 'itchyny/lightline.vim'
+set laststatus=2
 
-Plugin 'vim-airline/vim-airline-themes'
-let g:airline_theme='solarized'
-let g:airline_solarized_bg='dark'
+let g:lightline = {
+  \ 'colorscheme': 'wombat',
+  \ }
 
 Plugin 'scrooloose/syntastic'
 
