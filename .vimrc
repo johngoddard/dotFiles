@@ -6,47 +6,7 @@ call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
 
-" highlighting for git
-Plugin 'airblade/vim-gitgutter'
-"
-" GitGutter update time
-set updatetime=1000
-
-" GitGutter styling to use · instead of +/-
-let g:gitgutter_sign_added = '∙'
-let g:gitgutter_sign_modified = '∙'
-let g:gitgutter_sign_removed = '∙'
-let g:gitgutter_sign_modified_removed = '∙'
-
-Plugin 'tpope/vim-fugitive'
-
-Plugin 'itchyny/lightline.vim'
-set laststatus=2
-
-let g:lightline = {
-  \ 'colorscheme': 'wombat',
-  \ }
-
-Plugin 'scrooloose/syntastic'
-
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
 set backspace=2 " make backspace work like other apps
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 1
-let g:syntastic_javascript_checkers = ['eslint']
-let g:ycm_show_diagnostics_ui = 0
-let g:syntastic_enable_highlighting = 0
-
-let g:syntastic_mode_map = {
-  \ "mode": "active",
-  \ "active_filetypes": ["javascript"],
-  \ "passive_filetypes": ["ruby"] }
 
 Plugin 'nathanaelkane/vim-indent-guides'
 let g:indent_guides_auto_colors = 0
@@ -71,6 +31,86 @@ hi link javaScriptTemplateVar Identifier
 hi link javaScriptTemplateString String
 Plugin 'othree/javascript-libraries-syntax.vim'
 
+" highlighting for Pug
+Plugin 'digitaltoad/vim-pug'
+
+" highlighting for git
+
+Plugin 'itchyny/lightline.vim'
+set laststatus=2
+
+" Lightline
+let g:lightline = {
+\ 'colorscheme': 'wombat',
+\ 'active': {
+\   'left': [['mode', 'paste'], ['filename', 'modified']],
+\   'right': [['lineinfo'], ['percent'], ['readonly', 'linter_warnings', 'linter_errors', 'linter_ok']]
+\ },
+\ 'component_function': {
+\   'filename': 'LightLineFilename'
+\ },
+\ 'component_expand': {
+\   'linter_warnings': 'LightlineLinterWarnings',
+\   'linter_errors': 'LightlineLinterErrors',
+\   'linter_ok': 'LightlineLinterOK'
+\ },
+\ 'component_type': {
+\   'readonly': 'error',
+\   'linter_warnings': 'warning',
+\   'linter_errors': 'error'
+\ },
+\ }
+
+function! LightLineFilename()
+  return expand('%')
+endfunction
+function! LightlineLinterWarnings() abort
+  let l:counts = ale#statusline#Count(bufnr(''))
+  let l:all_errors = l:counts.error + l:counts.style_error
+  let l:all_non_errors = l:counts.total - l:all_errors
+  return l:counts.total == 0 ? '' : printf('%d ◆', all_non_errors)
+endfunction
+function! LightlineLinterErrors() abort
+  let l:counts = ale#statusline#Count(bufnr(''))
+  let l:all_errors = l:counts.error + l:counts.style_error
+  let l:all_non_errors = l:counts.total - l:all_errors
+  return l:counts.total == 0 ? '' : printf('%d ✗', all_errors)
+endfunction
+function! LightlineLinterOK() abort
+  let l:counts = ale#statusline#Count(bufnr(''))
+  let l:all_errors = l:counts.error + l:counts.style_error
+  let l:all_non_errors = l:counts.total - l:all_errors
+  return l:counts.total == 0 ? '✓ ' : ''
+endfunction
+
+" Update and show lightline but only if it's visible (e.g., not in Goyo)
+autocmd User ALELint call s:MaybeUpdateLightline()
+function! s:MaybeUpdateLightline()
+  if exists('#lightline')
+    call lightline#update()
+  end
+endfunction
+
+Plugin 'airblade/vim-gitgutter'
+
+" GitGutter update time
+set updatetime=1000
+
+" GitGutter styling to use · instead of +/-
+let g:gitgutter_sign_added = '∙'
+let g:gitgutter_sign_modified = '∙'
+let g:gitgutter_sign_removed = '∙'
+let g:gitgutter_sign_modified_removed = '∙'
+
+Plugin 'tpope/vim-fugitive'
+
+" async liniting
+Plugin 'w0rp/ale'
+
+let g:ale_sign_warning = '▲'
+let g:ale_sign_error = '✗'
+highlight link ALEWarningSign String
+highlight link ALEErrorSign Title
 
 Plugin 'mxw/vim-jsx'
 let g:jsx_ext_required = 0
@@ -106,7 +146,12 @@ let g:rubycomplete_rails = 1
 Plugin 'w0ng/vim-hybrid'
 
 Plugin 'mattn/emmet-vim'
-let g:user_emmet_leader_key='<Tab>'
+
+let g:user_emmet_settings = {
+\  'javascript.jsx' : {
+\      'extends' : 'jsx',
+\  },
+\}
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -128,12 +173,12 @@ set shiftwidth=2
 
 set expandtab
 
-" color schemes
+" Color schemes
 Plugin 'morhetz/gruvbox'
 
 set background=dark
-colorscheme gruvbox
 let g:gruvbox_contrast_dark='hard'
+colorscheme gruvbox
 
 if has('gui_running')
   set background=dark
@@ -158,8 +203,6 @@ endif
 
 command NT NERDTree
 command T CommandT
-command SR SyntasticReset
-command SR SyntasticReset
 command Def TernDef
 command Doc TernDoc
 command Type TernType
@@ -178,12 +221,12 @@ nnoremap <leader>s :set spell! <enter>
 nnoremap <leader>l :set number! <enter>
 nnoremap <leader>v :vsplit <enter>
 nnoremap <leader>h :split <enter>
-nnoremap <leader>w :w <enter>
 nnoremap <leader>q :q <enter>
-nnoremap <leader><leader> <c-^>
+nnoremap <leader>w :w <enter>
 nnoremap <leader>r :NERDTreeFocus <enter>
-nnoremap <silent> <leader>f :NERDTreeFind<CR>
+nnoremap <silent><leader>f :NERDTreeFind <enter>
 nnoremap <leader>n :NERDTreeToggle <enter>
+nnoremap <leader><leader> <c-^>
 
 vnoremap . :norm.<CR>
 
