@@ -240,5 +240,9 @@ nnoremap <C-K> <C-W><C-K>
 "ctrl p to :FZF for file search
 nnoremap <C-p> :FZF <Enter>
 
+" Quickly navigate between Ale errors
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
+
 Plugin 'mileszs/ack.vim'
 let g:ackprg = 'ag --column'
