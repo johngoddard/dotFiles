@@ -43,11 +43,15 @@ set laststatus=2
 let g:lightline = {
 \ 'colorscheme': 'wombat',
 \ 'active': {
-\   'left': [['mode', 'paste'], ['filename', 'modified']],
-\   'right': [['lineinfo'], ['percent'], ['readonly', 'linter_warnings', 'linter_errors', 'linter_ok']]
+\   'left': [ ['mode', 'paste'],
+\             ['gitbranch', 'filename', 'modified'] ],
+\   'right': [ ['lineinfo'],
+\              ['percent'],
+\              ['readonly', 'linter_warnings', 'linter_errors', 'linter_ok'] ]
 \ },
 \ 'component_function': {
-\   'filename': 'LightLineFilename'
+\   'filename': 'LightLineFilename',
+\   'gitbranch': 'fugitive#head'
 \ },
 \ 'component_expand': {
 \   'linter_warnings': 'LightlineLinterWarnings',
