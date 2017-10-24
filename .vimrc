@@ -123,14 +123,11 @@ Plugin 'scrooloose/nerdtree'
 
 let NERDTreeShowHidden=1
 
-Plugin 'wincent/command-t'
 set wildignore+=node_modules
 
 Plugin 'junegunn/fzf'
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
-let g:CommandTMaxHeight = 30
-let g:CommandTMaxFiles = 500000
 
 Plugin 'elzr/vim-json'
 
@@ -202,7 +199,6 @@ if has('gui_running')
 endif
 
 command NT NERDTree
-command T CommandT
 command Def TernDef
 command Doc TernDoc
 command Type TernType
