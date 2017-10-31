@@ -240,9 +240,13 @@ nnoremap <C-K> <C-W><C-K>
 "ctrl p to :FZF for file search
 nnoremap <C-p> :FZF <Enter>
 
-" Quickly navigate between Ale errors
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
+" Quickly navigate between ALE errors                                                                                                                                                                          
+nmap <silent> <C-a> <Plug>(ale_previous_wrap)
+nmap <silent> <C-w> <Plug>(ale_next_wrap)
+
+" Quickly navigate between next and previous buffers
+nnoremap <C-t> :bnext<CR>
+nnoremap <C-e> :bprev<CR>
 
 Plugin 'mileszs/ack.vim'
 let g:ackprg = 'ag --column'
