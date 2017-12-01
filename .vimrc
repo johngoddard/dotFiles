@@ -6,7 +6,8 @@ call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
 
-set backspace=2 " make backspace work like other apps
+" make backspace work like other apps
+set backspace=2
 
 " Visualize code indentations
 Plugin 'nathanaelkane/vim-indent-guides'
