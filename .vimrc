@@ -8,6 +8,7 @@ Plugin 'VundleVim/Vundle.vim'
 
 set backspace=2 " make backspace work like other apps
 
+" Visualize code indentations
 Plugin 'nathanaelkane/vim-indent-guides'
 let g:indent_guides_auto_colors = 0
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=black
