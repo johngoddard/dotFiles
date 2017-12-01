@@ -1,4 +1,4 @@
-set nocompatible
+set nocompatible 
 filetype off
 
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -16,37 +16,42 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=darkgrey
 let g:indent_guides_guide_size = 1
 let g:indent_guides_enable_on_vim_startup = 1
 
-Plugin 'Raimondi/delimitMate'
+" Quote / bracket / paren autocomplete
+Plugin 'Raimondi/delimitMate' 
 let delimitMate_expand_cr=1
 
+" Tab to complete text
 Plugin 'ervandew/supertab'
 let g:SuperTabDefaultCompletionType = "<c-n>"
 
-
+" Jump to definitions, rename, etc...
 Plugin 'ternjs/tern_for_vim'
 
+" Javascript syntax highlighting
 Plugin 'pangloss/vim-javascript', { 'for': 'javascript' }
+
+" Javascript syntax highlighting
 Plugin 'jelera/vim-javascript-syntax'
 hi link javaScriptTemplateVar Identifier
 hi link javaScriptTemplateString String
+
+" Javascript library syntax highlighting
 Plugin 'othree/javascript-libraries-syntax.vim'
 
 " highlighting for Pug
 Plugin 'digitaltoad/vim-pug'
 
-" highlighting for git
-
+" Lightline status bar
 Plugin 'itchyny/lightline.vim'
 set laststatus=2
 
-" Lightline
 let g:lightline = {
 \ 'colorscheme': 'wombat',
 \ 'active': {
-\   'left': [ ['mode', 'paste'],
+\   'left': [ ['mode', 'paste'], 
 \             ['gitbranch', 'filename', 'modified'] ],
-\   'right': [ ['lineinfo'],
-\              ['percent'],
+\   'right': [ ['lineinfo'], 
+\              ['percent'], 
 \              ['readonly', 'linter_warnings', 'linter_errors', 'linter_ok'] ]
 \ },
 \ 'component_function': {
@@ -95,6 +100,7 @@ function! s:MaybeUpdateLightline()
   end
 endfunction
 
+" Add gutter indicators for lines that have been changed
 Plugin 'airblade/vim-gitgutter'
 
 " GitGutter update time
@@ -106,6 +112,7 @@ let g:gitgutter_sign_modified = '∙'
 let g:gitgutter_sign_removed = '∙'
 let g:gitgutter_sign_modified_removed = '∙'
 
+" Integrated Git commands
 Plugin 'tpope/vim-fugitive'
 
 " async liniting
@@ -116,27 +123,38 @@ let g:ale_sign_error = '✗'
 highlight link ALEWarningSign String
 highlight link ALEErrorSign Title
 
+" Syntax highlighting for jsx
 Plugin 'mxw/vim-jsx'
 let g:jsx_ext_required = 0
 
+" Auto align text
 Plugin 'godlygeek/tabular'
+
+" Markdown syntax highlighting
 Plugin 'plasticboy/vim-markdown'
 let g:vim_markdown_folding_disabled = 1
 
+" Display & browse file tree
 Plugin 'scrooloose/nerdtree'
-
 let NERDTreeShowHidden=1
 
 set wildignore+=node_modules
 
+" Fuzzy find files
 Plugin 'junegunn/fzf'
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
+" Search file text
+Plugin 'mileszs/ack.vim'
+let g:ackprg = 'ag --column'
 
+" JSON highlighting
 Plugin 'elzr/vim-json'
 
+" Key mappings
 Plugin 'tpope/vim-unimpaired'
 
+" For Ruby on Rails development
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'tpope/vim-rails'
 
@@ -144,8 +162,13 @@ let g:rubycomplete_buffer_loading = 1
 let g:rubycomplete_classes_in_global = 1
 let g:rubycomplete_rails = 1
 
+" Colorscheme
 Plugin 'w0ng/vim-hybrid'
 
+" Colorscheme
+Plugin 'morhetz/gruvbox'
+
+" Expand shorthand markup notation
 Plugin 'mattn/emmet-vim'
 
 let g:user_emmet_settings = {
@@ -174,8 +197,8 @@ set shiftwidth=2
 
 set expandtab
 
-" Color schemes
-Plugin 'morhetz/gruvbox'
+" Set up colors
+colorscheme default
 
 set background=dark
 let g:gruvbox_contrast_dark='hard'
@@ -216,13 +239,14 @@ filetype plugin indent on
 syntax on
 set encoding=utf-8
 
-nnoremap <leader>f 1z=
+nnoremap <leader>z 1z=
 nnoremap <leader>s :set spell! <enter>
 nnoremap <leader>l :set number! <enter>
 nnoremap <leader>v :vsplit <enter>
 nnoremap <leader>h :split <enter>
 nnoremap <leader>q :q <enter>
 nnoremap <leader>w :w <enter>
+nnoremap <leader>e :e <enter>
 nnoremap <leader>r :NERDTreeFocus <enter>
 nnoremap <silent><leader>f :NERDTreeFind <enter>
 nnoremap <leader>n :NERDTreeToggle <enter>
@@ -232,6 +256,7 @@ vnoremap . :norm.<CR>
 
 :autocmd InsertEnter,InsertLeave * set cul!
 
+" Split switching
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 nnoremap <C-J> <C-W><C-J>
@@ -240,13 +265,10 @@ nnoremap <C-K> <C-W><C-K>
 "ctrl p to :FZF for file search
 nnoremap <C-p> :FZF <Enter>
 
-" Quickly navigate between ALE errors                                                                                                                                                                          
+" Quickly navigate between ALE errors
 nmap <silent> <C-a> <Plug>(ale_previous_wrap)
 nmap <silent> <C-w> <Plug>(ale_next_wrap)
 
 " Quickly navigate between next and previous buffers
 nnoremap <C-t> :bnext<CR>
 nnoremap <C-e> :bprev<CR>
-
-Plugin 'mileszs/ack.vim'
-let g:ackprg = 'ag --column'
