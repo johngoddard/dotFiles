@@ -266,6 +266,8 @@ nnoremap <C-K> <C-W><C-K>
 
 "ctrl p to :FZF for file search
 nnoremap <C-p> :FZF <Enter>
+"ctrl f to search file content
+nnoremap <C-f> :Ack<space>
 
 " Quickly navigate between ALE errors
 nmap <silent> <C-a> <Plug>(ale_previous_wrap)
