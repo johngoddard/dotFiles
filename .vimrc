@@ -252,6 +252,9 @@ nnoremap <leader>e :e <enter>
 nnoremap <leader>r :NERDTreeFocus <enter>
 nnoremap <silent><leader>f :NERDTreeFind <enter>
 nnoremap <leader>n :NERDTreeToggle <enter>
+nnoremap <leader>gd :Gdiff <enter>
+nnoremap <leader>gs :Gstatus <enter>
+nnoremap <leader>gb :Gblame <enter>
 nnoremap <leader><leader> <c-^>
 
 vnoremap . :norm.<CR>
