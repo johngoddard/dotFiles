@@ -7,13 +7,15 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 " make backspace work like other apps
-set backspace=2
+set backspace=2 
 
 " Visualize code indentations
 Plugin 'nathanaelkane/vim-indent-guides'
 let g:indent_guides_auto_colors = 0
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=black
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=darkgrey
+
+autocmd FileType python setlocal sw=2 sts=2 expandtab
 
 let g:indent_guides_guide_size = 1
 let g:indent_guides_enable_on_vim_startup = 1
@@ -46,6 +48,8 @@ Plugin 'digitaltoad/vim-pug'
 " Lightline status bar
 Plugin 'itchyny/lightline.vim'
 set laststatus=2
+
+Plugin 'majutsushi/tagbar'
 
 let g:lightline = {
 \ 'colorscheme': 'wombat',
@@ -106,7 +110,7 @@ endfunction
 Plugin 'airblade/vim-gitgutter'
 
 " GitGutter update time
-set updatetime=1000
+set updatetime=500
 
 " GitGutter styling to use · instead of +/-
 let g:gitgutter_sign_added = '∙'
@@ -252,10 +256,14 @@ nnoremap <leader>e :e <enter>
 nnoremap <leader>r :NERDTreeFocus <enter>
 nnoremap <silent><leader>f :NERDTreeFind <enter>
 nnoremap <leader>n :NERDTreeToggle <enter>
+nnoremap <leader><leader> <c-^>
 nnoremap <leader>gd :Gdiff <enter>
 nnoremap <leader>gs :Gstatus <enter>
 nnoremap <leader>gb :Gblame <enter>
-nnoremap <leader><leader> <c-^>
+nnoremap <leader>t :term /bin/bash --rcfile /home/ubuntu/.bash_profile<enter>
+nnoremap <leader>frs :term /bin/bash --rcfile /home/ubuntu/.bash_profile<enter>frs<enter>
+nnoremap <leader>rs :term /bin/bash --rcfile /home/ubuntu/.bash_profile<enter>rs<enter>
+nnoremap <leader>ct :term /bin/bash --rcfile /home/ubuntu/.bash_profile<enter>tc<enter>
 
 vnoremap . :norm.<CR>
 
@@ -269,8 +277,12 @@ nnoremap <C-K> <C-W><C-K>
 
 "ctrl p to :FZF for file search
 nnoremap <C-p> :FZF <Enter>
+
 "ctrl f to search file content
 nnoremap <C-f> :Ack<space>
+
+" ctrl g to do a global search for the work under the cursor
+nnoremap <C-g> :Ack <c-r>=expand("<cword>")<cr> <enter>
 
 " Quickly navigate between ALE errors
 nmap <silent> <C-a> <Plug>(ale_previous_wrap)
@@ -279,3 +291,8 @@ nmap <silent> <C-w> <Plug>(ale_next_wrap)
 " Quickly navigate between next and previous buffers
 nnoremap <C-t> :bnext<CR>
 nnoremap <C-e> :bprev<CR>
+
+augroup AutoSaveFolds
+  autocmd Syntax * setlocal foldmethod=syntax
+  autocmd Syntax javascript,python,vim,css,html,scss normal zR
+augroup END
