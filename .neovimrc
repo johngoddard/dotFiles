@@ -1,8 +1,15 @@
+let $NVIM_COC_LOG_LEVEL = 'debug'
 set nocompatible 
 set smartindent
 filetype off
 
+set inccommand=split
+
+" set rtp+=~/.vim/bundle/Vundle.vim
+" call vundle#begin()
 call plug#begin('~/.vim/plugged')
+
+" Plug 'VundleVim/Vundle.vim'
 
 " make backspace work like other apps
 set backspace=2 
@@ -31,17 +38,66 @@ let delimitMate_expand_cr=1
 
 " Better motions" 
 Plug 'easymotion/vim-easymotion'
-" map <leader>m <Plug>(easymotion-prefix)
+
+" Override search
+map  / <Plug>(easymotion-sn)
+omap / <Plug>(easymotion-tn)
+
+" These `n` & `N` mappings are options. You do not have to map `n` & `N` to EasyMotion.
+" Without these mappings, `n` & `N` works fine. (These mappings just provide
+" different highlight method and have some other features )
+" map  n <Plug>(easymotion-next)
+" map  N <Plug>(easymotion-prev)
 
 " Plug 'Valloric/YouCompleteMe'
 " let g:ycm_autoclose_preview_window_after_completion = 1
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile'}
+autocmd FileType vim if bufname('%') == '[Command Line]' | let b:coc_suggest_disable = 1 | endif
+
+" Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
+" Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
+" Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
+" " Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
+" Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
+
+" let g:coc_global_extensions = [
+"   \ 'coc-snippets',
+"   \ 'coc-pairs',
+"   \ 'coc-eslint',
+"   \ 'coc-tsserver',
+"   \ 'coc-css',
+"   \ 'coc-json',
+"   \ ]
+
+" Use <C-l> for trigger snippet expand.
+imap <C-l> <Plug>(coc-snippets-expand)
+
+" Use <C-j> for select text for visual placeholder of snippet.
+vmap <C-j> <Plug>(coc-snippets-select)
+
+" Use <C-j> for jump to next placeholder, it's default of coc.nvim
+let g:coc_snippet_next = '<c-j>'
+
+" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+let g:coc_snippet_prev = '<c-k>'
+
+" Use <C-j> for both expand and jump (make expand higher priority.)
+imap <C-j> <Plug>(coc-snippets-expand-jump)
+
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" let g:coc_snippet_next = '<tab>'
 
 " let g:coc_global_extensions = [ 'coc-emoji', 'coc-eslint', 'coc-prettier', 'coc-tsserver', 'coc-tslint', 'coc-tslint-plugin', 'coc-css', 'coc-json', 'coc-pyls', 'coc-yaml' ]
 
@@ -94,9 +150,6 @@ endfunction
 
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
-
-" Jump to definitions, rename, etc...
-Plug 'ternjs/tern_for_vim'
 
 " Javascript syntax highlighting
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
@@ -213,10 +266,6 @@ Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 let g:vim_markdown_folding_disabled = 1
 
-" Display & browse file tree
-Plug 'scrooloose/nerdtree'
-let NERDTreeShowHidden=1
-
 set wildignore+=node_modules
 
 " Fuzzy find files
@@ -248,9 +297,18 @@ Plug 'w0ng/vim-hybrid'
 
 " Colorscheme
 Plug 'morhetz/gruvbox'
+let g:gruvbox_contrast_dark='medium'
+
+" Colorscheme
+Plug 'embark-theme/vim', { 'as': 'embark' }
 
 " Colorscheme
 Plug 'sonph/onehalf', {'rtp': 'vim/'}
+
+" Colorscheme
+Plug 'ayu-theme/ayu-vim'
+" set termguicolors
+let ayucolor="mirage"
 
 " Expand shorthand markup notation
 Plug 'mattn/emmet-vim'
@@ -261,6 +319,9 @@ let g:user_emmet_settings = {
 \  },
 \}
 
+Plug 'norcalli/nvim-colorizer.lua'
+
+" call vim-plug#end()            " required
 call plug#end()
 
 filetype plugin indent on
@@ -280,9 +341,14 @@ set shiftwidth=2
 set expandtab
 
 " Set up colors
+set termguicolors
+
 set background=dark
-let g:gruvbox_contrast_dark='hard'
 colorscheme gruvbox
+
+"set background=light
+"colorscheme onehalflight
+
 
 if has('gui_running')
   set background=dark
@@ -305,13 +371,6 @@ if has('gui_running')
   noremap <D-0> :tablast<CR>
 endif
 
-command NT NERDTree
-command Def TernDef
-command Doc TernDoc
-command Type TernType
-command Refs TernRefs
-command Re TernRename
-
 inoremap jk <ESC>
 
 let mapleader = "\<Space>"
@@ -321,15 +380,16 @@ set encoding=utf-8
 nnoremap <leader>z 1z=
 nnoremap <leader>s :set spell! <enter>
 nnoremap <leader>l :set number! <enter>
+nnoremap <leader>lr :set relativenumber! <enter>
 nnoremap <leader>v :vsplit <enter>
 nnoremap <leader>h :split <enter>
 nnoremap <leader>q :q <enter>
 nnoremap <leader>w :w <enter>
 nnoremap <leader>e :e <enter>
-nnoremap <leader>nr :NERDTreeFocus <enter>
-nnoremap <silent><leader>f :NERDTreeFind <enter>
-nnoremap <leader>n :NERDTreeToggle <enter>
+map <leader>n :CocCommand explorer <enter>
 nnoremap <leader>p <c-^>
+nnoremap <silent><leader>i :bprev<cr>
+nnoremap <silent><leader>o :bnext<cr>
 nnoremap <leader>gd :Gdiff <enter>
 nnoremap <leader>gs :Gstatus <enter>
 nnoremap <leader>gb :Gblame <enter>
@@ -345,6 +405,12 @@ nnoremap <leader>td <C-W><C-]>
 nnoremap <leader>b <C-t>
 nnoremap <Leader>rn :%s/\<<C-r><C-w>\>/
 nnoremap <leader>tb :TagbarToggle<CR>
+nnoremap <leader>an :set norelativenumber<CR>
+map <leader>; <Plug>(easymotion-prefix)
+map <C-m> <Plug>(easymotion-prefix)
+nnoremap <silent><space>y  :<C-u>CocList -A --normal yank<cr>
+
+nnoremap <leader><space> <c-^>
 
 vnoremap . :norm.<CR>
 
@@ -366,14 +432,8 @@ nnoremap <C-f> :Ack<space>
 nnoremap <C-g> :Ack <c-r>=expand("<cword>")<cr> <enter>
 
 " Quickly navigate between ALE errors
-nmap <silent> <C-a> <Plug>(ale_previous_wrap)
+nmap <silent> <C-q> <Plug>(ale_previous_wrap)
 nmap <silent> <C-w> <Plug>(ale_next_wrap)
-
-" Paste correct indenting
-" nnoremap p ]p
-
-" colorscheme onehalfdark
-" let g:lightline.colorscheme='onehalfdark'
 
 augroup AutoSaveFolds
   autocmd Syntax * setlocal foldmethod=syntax
@@ -385,3 +445,11 @@ inoremap {<CR> {<CR>}<Esc>O<BS><Tab>
 
 " <Ctrl-l> redraws the screen and removes any search highlighting.
 nnoremap <leader>ch :nohl<CR><C-l>
+
+
+" nnoremap <silent><leader><leader> :bprev<cr>
+augroup numbertoggle
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+augroup END
